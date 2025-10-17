@@ -159,12 +159,12 @@ h6 {
 
 /* Slightly larger header logo when .header-logo class is used */
 .header .logo img.header-logo {
-  max-height: 48px; /* modest bump */
+  max-height: 55px; /* modest bump */
 }
 
 @media (max-width: 640px) {
   .header .logo img.header-logo {
-    max-height: 40px; /* keep it tidy on small screens */
+    max-height: 4px; /* keep it tidy on small screens */
   }
 }
 
