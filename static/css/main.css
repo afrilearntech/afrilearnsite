@@ -1,15 +1,3 @@
-/**
-* Template Name: Bootslander
-* Template URL: https://bootstrapmade.com/bootslander-free-bootstrap-landing-page-template/
-* Updated: Aug 07 2024 with Bootstrap v5.3.3
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
-/*--------------------------------------------------------------
-# Font & Color Variables
-# Help: https://bootstrapmade.com/color-system/
---------------------------------------------------------------*/
 /* Fonts */
 :root {
   --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -89,7 +77,7 @@ h6 {
 
 /* PHP Email Form Messages
 ------------------------------*/
-.php-email-form .error-message {
+.error-message {
   display: none;
   background: #df1529;
   color: #ffffff;
@@ -99,7 +87,7 @@ h6 {
   font-weight: 600;
 }
 
-.php-email-form .sent-message {
+.sent-message {
   display: none;
   color: #ffffff;
   background: #059652;
@@ -109,7 +97,7 @@ h6 {
   font-weight: 600;
 }
 
-.php-email-form .loading {
+.loading {
   display: none;
   background: var(--surface-color);
   text-align: center;
@@ -117,7 +105,7 @@ h6 {
   margin-bottom: 24px;
 }
 
-.php-email-form .loading:before {
+.loading:before {
   content: "";
   display: inline-block;
   border-radius: 50%;
@@ -158,7 +146,7 @@ h6 {
 }
 
 .header .logo img {
-  max-height: 32px;
+  max-height: 40px;
   margin-right: 8px;
 }
 
@@ -167,6 +155,17 @@ h6 {
   margin: 0;
   font-weight: 700;
   color: var(--heading-color);
+}
+
+/* Slightly larger header logo when .header-logo class is used */
+.header .logo img.header-logo {
+  max-height: 48px; /* modest bump */
+}
+
+@media (max-width: 640px) {
+  .header .logo img.header-logo {
+    max-height: 40px; /* keep it tidy on small screens */
+  }
 }
 
 .scrolled .header {
@@ -471,6 +470,12 @@ h6 {
   letter-spacing: 1px;
   font-family: var(--heading-font);
   color: var(--heading-color);
+}
+
+/* Footer logo override - allow larger logo when .footer-logo class is used */
+.footer .footer-about .logo img.footer-logo {
+  max-height: 120px;
+  width: auto;
 }
 
 .footer .footer-about p {
@@ -1213,6 +1218,16 @@ section,
   margin-bottom: 0;
 }
 
+/* Auto-alternate layout for project rows (even rows flip order on md+) */
+@media (min-width: 768px) {
+  #projects .features-item:nth-of-type(even) .col-md-5 {
+    order: 2;
+  }
+  #projects .features-item:nth-of-type(even) .col-md-7 {
+    order: 1;
+  }
+}
+
 /*--------------------------------------------------------------
 # Gallery Section
 --------------------------------------------------------------*/
@@ -1699,13 +1714,13 @@ section,
   color: var(--contrast-color);
 }
 
-.contact .php-email-form {
+.contact {
   height: 100%;
 }
 
-.contact .php-email-form input[type=text],
-.contact .php-email-form input[type=email],
-.contact .php-email-form textarea {
+.contact input[type=text],
+.contact input[type=email],
+.contact textarea {
   font-size: 14px;
   padding: 10px 15px;
   box-shadow: none;
@@ -1715,19 +1730,19 @@ section,
   border-color: color-mix(in srgb, var(--default-color), transparent 80%);
 }
 
-.contact .php-email-form input[type=text]:focus,
-.contact .php-email-form input[type=email]:focus,
-.contact .php-email-form textarea:focus {
+.contact input[type=text]:focus,
+.contact input[type=email]:focus,
+.contact textarea:focus {
   border-color: var(--accent-color);
 }
 
-.contact .php-email-form input[type=text]::placeholder,
-.contact .php-email-form input[type=email]::placeholder,
-.contact .php-email-form textarea::placeholder {
+.contact input[type=text]::placeholder,
+.contact input[type=email]::placeholder,
+.contact textarea::placeholder {
   color: color-mix(in srgb, var(--default-color), transparent 70%);
 }
 
-.contact .php-email-form button[type=submit] {
+.contact button[type=submit] {
   color: var(--contrast-color);
   background: var(--accent-color);
   border: 0;
@@ -1736,7 +1751,7 @@ section,
   border-radius: 50px;
 }
 
-.contact .php-email-form button[type=submit]:hover {
+.contact button[type=submit]:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 25%);
 }
 
@@ -1744,5 +1759,21 @@ section,
 # Starter Section Section
 --------------------------------------------------------------*/
 .starter-section {
-  /* Add your styles here */
+  /* Intentionally left for starter overrides */
+}
+
+/*--------------------------------------------------------------
+# Recognition Utilities
+--------------------------------------------------------------*/
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.recognition-card img {
+  object-fit: cover;
+  height: 220px;
 }
