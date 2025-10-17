@@ -39,8 +39,8 @@
 
       <a href="#" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">AfriLearn</h1>
+        <img src="{% static 'img/logo.png' %}" class="header-logo" alt="AfriLearnTech Logo">
+        <!-- <h1 class="sitename">AfriLearnTech</h1> -->
       </a>
 
       <nav id="navmenu" class="navmenu">
@@ -48,7 +48,9 @@
           <li><a href="#hero" class="active">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#competence">Competence</a></li>
+          <li><a href="#projects">Projects</a></li>
           <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#recognitions">Recognitions</a></li>
           <li><a href="#team">Team</a></li>
         
           <li><a href="#contact">Contact</a></li>
@@ -84,7 +86,7 @@
 
           <div class="col-lg-6  d-flex flex-column justify-content-center" data-aos="fade-in">
             <h1>Empowering Education. Enabling Innovation.  <span>Enhancing Africa.</span></h1>
-            <p>We help governments, schools, and organizations digitize education, strengthen capacity, and build the future of learning through technology and innovation.</p>
+            <p>We help governments, schools, and organizations digitize education, modernize agriculture, improve healthcare delivery, transform financial services and strengthen capacity through technology and innovation.</p>
             <div class="d-flex">
               <a href="#about" class="btn-get-started">About Us</a>
               <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
@@ -119,8 +121,8 @@
 
           <div class="col-xl-5 content">
             <h3>About Us</h3>
-            <h2>At AfriLearn Tech Company Limited,</h2>
-            <p>We believe Africa’s growth depends on its ability to learn, connect, and create — and we exist to make that possible. Through innovation-driven education platforms, strategic consulting, and infrastructure development, we empower institutions to reimagine how they deliver impact.</p>
+            <h2>At AfriLearnTech Company Limited,</h2>
+            <p>we believe Africa’s growth depends on its ability to learn, connect and create, and we exist to make that possible. Through innovation-driven education platforms, strategic consulting, and infrastructure development, we empower governments and institutions to reimagine how they deliver impact.</p>
             <a href="#" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
           </div>
 
@@ -131,7 +133,7 @@
                 <div class="icon-box">
                   <i class="bi bi-buildings"></i>
                   <h3>Innovation</h3>
-                  <p>We challenge conventions and pioneer digital transformation</p>
+                  <p>We challenge conventions and pioneer digital transformation.</p>
                 </div>
               </div> <!-- End Icon Box -->
 
@@ -139,7 +141,7 @@
                 <div class="icon-box">
                   <i class="bi bi-clipboard-pulse"></i>
                   <h3>Integrity</h3>
-                  <p>We uphold transparency, accountability, and ethical partnerships</p>
+                  <p>We uphold transparency, accountability, and ethical partnerships.</p>
                 </div>
               </div> <!-- End Icon Box -->
 
@@ -147,7 +149,7 @@
                 <div class="icon-box">
                   <i class="bi bi-command"></i>
                   <h3>Excellence</h3>
-                  <p>We deliver impactful, sustainable, and scalable solutions</p>
+                  <p>We deliver impactful, sustainable, and scalable solutions.</p>
                 </div>
               </div> <!-- End Icon Box -->
 
@@ -171,7 +173,10 @@
     <section id="competence" class="features section">
 
       <div class="container">
-
+        <div class="section-title" data-aos="fade-up">
+          <h2>Competence</h2>
+          <div><span>Our Core</span> <span class="description-title">Competencies</span></div>
+          <p>We are a team of visionary educators, technologists, and innovators driving transformation across <strong>EdTech, AgriTech, HealthTech, and FinTech</strong> sectors through the strategic application of technology. Our multidisciplinary expertise spans education, software development, instructional design, and digital media production, enabling us to deliver comprehensive, tailored solutions that address the unique challenges and opportunities within each sector.</p>
         <div class="row gy-4">
 
           <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="100">
@@ -310,21 +315,37 @@
     </section><!-- /Stats Section -->
 
     <!-- Details Section -->
-    <section id="details" class="details section">
+    <section id="projects" class="details section">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Projects</h2>
         <div><span>Check Some of Our</span> <span class="description-title">Projects</span></div>
+        <p>We provided consultancy services for the following projects:</p>
       </div><!-- End Section Title -->
 
       <div class="container">
 
         <div class="row gy-4 align-items-center features-item">
           <div class="col-md-5 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
-            <img src="{% static 'img/details-1.png' %}" class="img-fluid" alt="">
+            <img src="{% static 'img/details-2.png' %}" class="img-fluid" alt="">
           </div>
           <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
+            <h3>Channel MoE TV</h3>
+            <p class="fst-italic">
+              Channel MoE TV is an innovative educational platform developed in partnership with the Center for National Distance Learning and Open Schooling (CENDLOS), Ministry of Education,  Ghana. It aims to provide high-quality and accessible learning content to students across the country.
+            </p>
+            <p>
+              This initiative was spearheaded by our CEO <strong>Dr. Nana Gyamfi Adwabour</strong> (the former Executive Director of CENDLOS), leveraging his expertise in digital education and technology solutions. Channel MoE TV broadcasts educational programs aligned with the national curriculum, covering subjects such as Mathematics, Science, English Language and Social Studies.
+            </p>
+          </div>
+        </div><!-- Features Item -->
+
+        <div class="row gy-4 align-items-center features-item">
+          <div class="col-md-5 order-1 order-md-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
+            <img src="{% static 'img/details-1.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-md-7 order-2 order-md-1" data-aos="fade-up" data-aos-delay="100">
             <h3>The Ghana Learning Passport</h3>
             <p class="fst-italic">
               Our flagship project, the Ghana Learning Passport, is a collaboration with the Ministry of Education in Ghana and UNICEF to provide access to quality learning resources for children and youth affected by school closures due to the COVID-19 pandemic.
@@ -332,23 +353,8 @@
             <ul>
               <li><i class="bi bi-check"></i><span> Projected by UNICEF as a model for digital learning in Africa.</span></li>
               <li><i class="bi bi-check"></i> <span>Designed to be scalable and adaptable to different contexts.</span></li>
-              <li><i class="bi bi-check"></i> <span>Incorporates a wide range of digital content, including videos, quizzes, and interactive activities.</span></li>
+              <li><i class="bi bi-check"></i> <span>Incorporates a wide range of digital content, including videos, quizzes and interactive activities.</span></li>
             </ul>
-          </div>
-        </div><!-- Features Item -->
-
-        <div class="row gy-4 align-items-center features-item">
-          <div class="col-md-5 order-1 order-md-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-            <img src="{% static 'img/details-2.png' %}" class="img-fluid" alt="">
-          </div>
-          <div class="col-md-7 order-2 order-md-1" data-aos="fade-up" data-aos-delay="200">
-            <h3>Channel MoE TV</h3>
-            <p class="fst-italic">
-              Channel MoE TV is an innovative educational platform developed in partnership with the Ministry of Education in Ghana. It aims to provide high-quality, accessible learning content to students across the country.
-            </p>
-            <p>
-              This initiative was spearheaded by our CEO, leveraging his expertise in digital education and technology solutions. Channel MoE TV broadcasts educational programs aligned with the national curriculum, covering subjects such as mathematics, science, language arts, and social studies.
-            </p>
           </div>
         </div><!-- Features Item -->
 
@@ -358,10 +364,10 @@
           </div>
           <div class="col-md-7" data-aos="fade-up">
             <h3>Minecraft Education for SHS Students</h3>
-            <p>This innovative project leverages the popular game Minecraft to create engaging and interactive learning experiences for Senior High School students in Ghana. And it's implementation is overseen by some of our expert educators.</p>
+            <p>This innovative project leverages the popular game Minecraft to create engaging and interactive learning experiences for senior high school students in Ghana. It's implementation is overseen by our experts.</p>
             <ul>
               <li><i class="bi bi-check"></i> <span>Promotes creativity and problem-solving skills through game-based learning.</span></li>
-              <li><i class="bi bi-check"></i><span> Aligns with the national curriculum to enhance traditional teaching methods.</span></li>
+              <li><i class="bi bi-check"></i><span> Aligns with the national curriculum.</span></li>
               <li><i class="bi bi-check"></i> <span>Encourages collaboration and teamwork among students.</span></li>
             </ul>
           </div>
@@ -374,10 +380,10 @@
           <div class="col-md-7 order-2 order-md-1" data-aos="fade-up">
             <h3>Technology-Enabled Open School System</h3>
             <p class="fst-italic">
-              The Technology-Enabled Open School System is a groundbreaking initiative aimed at providing flexible, accessible, and high-quality education to learners in Ghana. By leveraging digital technologies, this system seeks to bridge the gap between traditional classroom learning and the needs of modern students.
+              The Technology-Enabled Open School System is a groundbreaking initiative aimed at providing flexible, accessible and high-quality education to learners in Ghana. By leveraging digital technologies, this system seeks to bridge the gap between traditional classroom learning and the needs of modern students.
             </p>
             <p>
-              The project assessed the extent to which learners are equipped with digital skills and can access e-learning resources independently and evaluate the impact of ICT on teaching methodologies and learning outcomes.
+              The project assesses the extent to which learners are equipped with digital skills and can access e-learning resources independently. It also evaluates the impact of ICT on teaching methodologies and learning outcomes.
             </p>
           </div>
         </div><!-- Features Item -->
@@ -457,8 +463,8 @@
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{% static 'img/gallery/g8.jpg' %}" class="glightbox" data-gallery="images-gallery">
-                <img src="{% static 'img/gallery/g8.jpg' %}" alt="" class="img-fluid">
+              <a href="{% static 'img/gallery/prince-and-nana.jpg' %}" class="glightbox" data-gallery="images-gallery">
+                <img src="{% static 'img/gallery/prince-and-nana.jpg' %}" alt="" class="img-fluid">
               </a>
             </div>
           </div><!-- End Gallery Item -->
@@ -472,7 +478,7 @@
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials section dark-background">
 
-  <img src="{% static 'img/testimonials-bg.jpg' %}" class="testimonials-bg" alt="">
+  <img src="{% static 'img/bg.jpg' %}" class="testimonials-bg" alt="">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
@@ -496,15 +502,15 @@
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="{% static 'img/testimonials/testimonials-1.jpg' %}" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
+                <img src="{% static 'img/testimonials/christopher.jpeg' %}" class="testimonial-img" alt="">
+                <h3>Mr. Christopher Nkrumah</h3>
+                <h4>UNICEF &amp; Ghana</h4>
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
+                  <span>I have worked with AfriLearn Tech Ghana on several EdTech and curriculum-based projects, and they have delivered exceptionally each time. What stands out most is their professionalism and deep understanding of the education technology industry. I highly recommend them to other countries seeking expert support in EdTech and curriculum development initiatives.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
@@ -512,15 +518,15 @@
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="{% static 'img/testimonials/testimonials-2.jpg' %}" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
+                <img src="{% static 'img/testimonials/lanre.jpeg' %}" class="testimonial-img" alt="">
+                <h3>Dr. Lanre Philips</h3>
+                <h4>Director for Classera in Africa</h4>
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
+                  <span>AfriLearn Tech has introduced truly revolutionary solutions in EdTech across Africa. In every project I have worked on with their Director and the team, they have consistently delivered beyond expectations. AfriLearn Tech is beyond reproach when it comes to delivering world-class digital solutions both within Africa and globally.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
@@ -528,51 +534,20 @@
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="{% static 'img/testimonials/testimonials-3.jpg' %}" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
+                <img src="{% static 'img/testimonials/mary-eshun.jpg' %}" class="testimonial-img" alt="">
+                <h3>Dr. Mary Eshun</h3>
+                <h4>Director/CEO of Ghana International School</h4>
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
+                  <span>In today’s educational landscape, technology plays a vital role in teaching and learning. I was introduced to AfriLearn Tech at a time when my school was transitioning from traditional pedagogies to technology-enabled education. AfriLearn Tech guided us through every step, from content development and policy design to capacity building and infrastructure setup. Today, our school stands as one of the leading institutions offering hybrid education in Ghana.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
             </div><!-- End testimonial item -->
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="{% static 'img/testimonials/testimonials-4.jpg' %}" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="{% static 'img/testimonials/testimonials-5.jpg' %}" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
 
           </div>
           <div class="swiper-pagination"></div>
@@ -589,7 +564,7 @@
       <div class="container section-title" data-aos="fade-up">
         <h2>Team</h2>
         <div><span>Check Our</span> <span class="description-title">Team</span></div>
-        <p>We are a blend of educators, technologists, engineers, curriculum experts, and media professionals united by one mission — to revolutionize learning through innovation.</p>
+        <p>We are a blend of educators, technologists, engineers, curriculum experts, and media professionals united by one mission — to revolutionize EdTech, AfriTech, HealthTech and FinTech through strategic technological innovation.</p>
       </div><!-- End Section Title -->
 
       <div class="container">
@@ -646,10 +621,10 @@
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
             <div class="member">
-              <div class="pic"><img src="{% static 'img/team/prince.jpg' %}" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="{% static 'img/team/prince2.jpg' %}" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Prince S. Kyeremanteng</h4>
-                <span>Lead Software Developer</span>
+                <span>Lead Software Engineer</span>
                 <div class="social">
                   <a href=""><i class="bi bi-twitter-x"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -692,12 +667,126 @@
             </div>
           </div><!-- End Team Member -->
 
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="member">
+              <div class="pic"><img src="{% static 'img/team/joe.jpg' %}" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Joseph Acheampong </h4>
+                <span>Software Engineer</span>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="member">
+              <div class="pic"><img src="{% static 'img/team/hackman.jpg' %}" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Dr. Salomey Hackman </h4>
+                <span>Consultant</span>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
         </div>
 
       </div>
 
     </section><!-- /Team Section -->
 
+
+    <!-- Recognitions Section -->
+    <section id="recognitions" class="recognitions section light-background">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Recognition</h2>
+          <div><span>Our</span> <span class="description-title">Recognitions</span></div>
+          <p>We are proud to be recognized for our contributions to the field of education technology and our commitment to improving learning outcomes across Africa.</p>
+        </div>
+
+        <div class="row gy-4">
+          <!-- Recognition Item 1 -->
+          <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+            <div class="card recognition-card h-100" data-images="{% static 'img/recognition/prof3.png' %}|{% static 'img/recognition/prof4.png' %}">
+              <img src="{% static 'img/recognition/prof3.png' %}" class="card-img-top" alt="National EdTech Excellence Award">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title mb-2">Cyber Security Awareness Webinar</h5>
+                <p class="card-text recognition-desc line-clamp-3 mb-3">
+                  Our CTO Prof. Kofi Sarpong Adu-Manu is going to be speaking as a guest speaker at the Cyber Security Awareness Webinar organized by the Africa Center for Digital Transformation-Ghana 17th October 2025.
+                </p>
+                <button type="button" class="btn btn-outline-primary mt-auto recognition-read-more" aria-label="Read more about Cyber Security Awareness Webinar">
+                  Read more
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recognition Item 2 -->
+          <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+            <div class="card recognition-card h-100" data-images="{% static 'img/recognition/ceo3.jpg' %}|{% static 'img/recognition/ceo2.jpg' %}|{% static 'img/recognition/ceo1.jpg' %}">
+              <img src="{% static 'img/recognition/ceo3.jpg' %}" class="card-img-top" alt="Government Partnership Recognition">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title mb-2">Best CEO Award</h5>
+                <p class="card-text recognition-desc line-clamp-3 mb-3">
+                  Our CEO, Dr. Nana Gyamfi Adwabour, was adjudged the Technology and Innovation CEO of the Year 2023 during the Ghana CEOs Awards.
+                </p>
+                <button type="button" class="btn btn-outline-primary mt-auto recognition-read-more" aria-label="Read more about Government Partnership">
+                  Read more
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recognition Item 3 -->
+          <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+            <div class="card recognition-card h-100" data-images="{% static 'img/recognition/prof.jpg' %}|{% static 'img/recognition/prof2.jpg' %}">
+              <img src="{% static 'img/recognition/prof.jpg' %}" class="card-img-top" alt="UG @75 Anniversary Logo">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title mb-2">UG @75 Anniversary Logo</h5>
+                <p class="card-text recognition-desc line-clamp-3 mb-3">
+                  Our CTO, Prof. Kofi Sarpong Adu-Manu, designed the official logo for the University of Ghana's 75th Anniversary celebrations, symbolizing innovation and excellence in learning technologies.
+                </p>
+                <button type="button" class="btn btn-outline-primary mt-auto recognition-read-more" aria-label="Read more about Innovation in Learning">
+                  Read more
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recognition Modal -->
+      <div class="modal fade" id="recognitionModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="recognitionModalTitle">Recognition</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="recognition-swiper swiper mb-3">
+                <div class="swiper-wrapper" id="recognitionModalSwiperWrapper"></div>
+                <div class="swiper-button-prev" aria-label="Previous image"></div>
+                <div class="swiper-button-next" aria-label="Next image"></div>
+                <div class="swiper-pagination"></div>
+              </div>
+              <p id="recognitionModalDescription" class="mb-0"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /Recognitions Section -->
 
     <!-- Faq Section -->
     <section id="faq" class="faq section light-background">
@@ -721,8 +810,8 @@
                 <i class="faq-icon bi bi-question-circle"></i>
                 <h3>What services does AfriLearn Tech Company Limited provide?</h3>
                 <div class="faq-content">
-                  <p>AfriLearn Tech Company Limited offers a full spectrum of digital transformation and consulting services, including Education Technology (EdTech) solutions, capacity building, curriculum development, media and broadcasting infrastructure setup, and institutional consultancy.
-We design and implement systems that help governments, schools, and organizations digitize learning, strengthen capacity, and enhance operational efficiency.</p>
+                  <p>AfriLearn Tech Company Limited offers a full spectrum of digital transformation and consulting services, including Education Technology (EdTech) solutions, Financial Technology (Fintech) solutions, Health Technology (HealthTech) solutions, Agriculture Technology (AgriTech) solutions, capacity building, media and broadcasting infrastructure setup, and institutional consultancy.
+We design and implement systems that help governments, schools, and organizations digitize learning, strengthen capacity, cyber security and enhance operational efficiency.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
@@ -842,8 +931,9 @@ We combine technical expertise, policy understanding, and local context to deliv
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">AfriLearn</span>
+          <a href="{% url 'website:home' %}" class="logo d-flex align-items-center">
+            <!-- <span class="sitename">AfriLearnTech</span> -->
+            <img src="{% static 'img/logo.png' %}" class="footer-logo" alt="AfriLearnTech Logo">
           </a>
           <div class="footer-contact pt-3">
             <p>Accra, Ghana</p>
@@ -852,10 +942,10 @@ We combine technical expertise, policy understanding, and local context to deliv
             <p><strong>Email:</strong> <span>info@afrilearntech.com</span></p>
           </div>
           <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
+            <a href="" title="Twitter" aria-label="Twitter"><i class="bi bi-twitter-x" aria-hidden="true"></i></a>
+            <a href="" title="Facebook" aria-label="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+            <a href="" title="Instagram" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+            <a href="" title="LinkedIn" aria-label="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
           </div>
         </div>
 
@@ -874,10 +964,11 @@ We combine technical expertise, policy understanding, and local context to deliv
           <h4>Our Services</h4>
           <ul>
             <li><a href="javascript:void(0)">EdTech Solutions</a></li>
-            <li><a href="javascript:void(0)">Consultancy & Capacity Building</a></li>
-            <li><a href="javascript:void(0)">Curriculum Development & Pedagogical Design</a></li>
-            <li><a href="javascript:void(0)">Media & Broadcasting Infrastructure</a></li>
+            <li><a href="javascript:void(0)">AgriTech</a></li>
+            <li><a href="javascript:void(0)">HealthTech</a></li>
+            <li><a href="javascript:void(0)">FinTech</a></li>
             <li><a href="javascript:void(0)">Research & Innovation</a></li>
+            <li><a href="javascript:void(0)">Capacity Building</a></li>
           </ul>
         </div>
 
@@ -886,7 +977,7 @@ We combine technical expertise, policy understanding, and local context to deliv
           <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
           <form action="{% url 'website:newsletter' %}" method="post">
             {% csrf_token %}
-            <div class="newsletter-form"><input type="email" name="email" required><input type="submit" value="Subscribe"></div>
+            <div class="newsletter-form"><input type="email" name="email" placeholder="Your email" aria-label="Email address" required><input type="submit" value="Subscribe"></div>
           </form>
         </div>
 
@@ -901,7 +992,7 @@ We combine technical expertise, policy understanding, and local context to deliv
   </footer>
 
   <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center" title="Back to top" aria-label="Back to top"><i class="bi bi-arrow-up-short" aria-hidden="true"></i></a>
 
   <!-- Preloader -->
   <div id="preloader"></div>
@@ -916,6 +1007,89 @@ We combine technical expertise, policy understanding, and local context to deliv
 
   <!-- Main JS File -->
   <script src="{% static 'js/main.js' %}"></script>
+
+  <!-- Recognition Modal Script -->
+  <script>
+    (function () {
+      const modalEl = document.getElementById('recognitionModal');
+      if (!modalEl || typeof bootstrap === 'undefined') return;
+      const modal = new bootstrap.Modal(modalEl);
+
+      let recognitionSwiper = null;
+      function openFromCard(card) {
+        if (!card) return;
+        const titleEl = card.querySelector('.card-title');
+        const descEl = card.querySelector('.recognition-desc');
+        const imgEl = card.querySelector('img');
+        const imagesAttr = card.getAttribute('data-images') || '';
+        const imageList = imagesAttr.split('|').map(s => s.trim()).filter(Boolean);
+
+        const title = titleEl ? titleEl.textContent.trim() : 'Recognition';
+        const description = descEl ? descEl.textContent.trim() : '';
+        const imgAlt = imgEl ? imgEl.getAttribute('alt') || title : title;
+
+        // Set modal title and description
+        document.getElementById('recognitionModalTitle').textContent = title;
+        document.getElementById('recognitionModalDescription').textContent = description;
+
+        // Build slides
+        const wrapper = document.getElementById('recognitionModalSwiperWrapper');
+        if (wrapper) {
+          wrapper.innerHTML = '';
+          const imgs = imageList.length ? imageList : [imgEl ? imgEl.getAttribute('src') : ''];
+          imgs.forEach(src => {
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide';
+            const image = document.createElement('img');
+            image.src = src;
+            image.alt = imgAlt;
+            image.className = 'img-fluid rounded';
+            slide.appendChild(image);
+            wrapper.appendChild(slide);
+          });
+        }
+
+        // Init or update swiper
+        const container = document.querySelector('.recognition-swiper');
+        if (container) {
+          if (recognitionSwiper) {
+            recognitionSwiper.update();
+            recognitionSwiper.slideToLoop(0, 0);
+          } else if (typeof Swiper !== 'undefined') {
+            recognitionSwiper = new Swiper(container, {
+              loop: true,
+              speed: 600,
+              autoplay: { delay: 4000 },
+              navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+              },
+              pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+              }
+            });
+          }
+        }
+
+        modal.show();
+      }
+
+      document.querySelectorAll('.recognition-card').forEach(card => {
+        // open on image click
+        const img = card.querySelector('img');
+        if (img) {
+          img.style.cursor = 'pointer';
+          img.addEventListener('click', () => openFromCard(card));
+        }
+        // open on button click
+        const btn = card.querySelector('.recognition-read-more');
+        if (btn) {
+          btn.addEventListener('click', () => openFromCard(card));
+        }
+      });
+    })();
+  </script>
 
 </body>
 
