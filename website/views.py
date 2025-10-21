@@ -20,7 +20,7 @@ def contact_submit(request):
 
     if not (name and email and subject and message):
         messages.error(request, 'Please fill in all required fields.')
-        return redirect('home')
+        return redirect('website:home')
 
     ContactMessage.objects.create(
         name=name,

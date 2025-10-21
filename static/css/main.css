@@ -1777,3 +1777,178 @@ section,
   object-fit: cover;
   height: 220px;
 }
+
+/* -------------------------------------------------------------
+# Education Impact Assessment Section
+---------------------------------------------------------------- */
+.line-clamp-5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+/*--------------------------------------------------------------
+# Education Impact Assessment (Horizontal Timeline)
+--------------------------------------------------------------*/
+.impact .section-title div {
+  letter-spacing: 0.5px;
+}
+
+.impact-swiper {
+  position: relative;
+  padding: 30px 10px 10px 10px;
+}
+
+/* Horizontal line across the timeline */
+.impact-swiper::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 56px; /* aligns with dot center */
+  height: 2px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--default-color), transparent 85%), var(--accent-color), color-mix(in srgb, var(--default-color), transparent 85%));
+  z-index: 1;
+}
+
+.impact .swiper-slide {
+  height: auto;
+}
+
+.impact-item {
+  position: relative;
+  text-align: center;
+  padding-top: 8px;
+}
+
+/* Dot on the timeline */
+.impact-item::before {
+  content: "";
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color), transparent 90%);
+  z-index: 2;
+}
+
+.impact-time {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 22px;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-color), transparent 92%);
+  color: var(--heading-color);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  /* Keep on a single line with graceful truncation */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
+}
+
+.impact-card {
+  position: relative;
+  background: rgba(255,255,255,0.8);
+  background: color-mix(in srgb, var(--surface-color), white 8%);
+  border: 1px solid rgba(68, 68, 68, 0.12);
+  border-radius: 14px;
+  padding: 18px 18px 16px 18px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.06);
+  transition: transform .28s ease, box-shadow .28s ease;
+  /* Uniform card sizing and layout */
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@supports (color: color-mix(in srgb, var(--default-color), transparent 88%)) {
+  .impact-card {
+    border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  }
+}
+
+.impact-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 14px 14px 0 0;
+  background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color), transparent 30%));
+}
+
+.impact-card h5 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  /* Clamp to 2 lines for consistent heading height */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.impact-card p {
+  font-size: 14px;
+  margin: 0;
+  /* Fallback for browsers that don't support color-mix (approximate of var(--default-color) with 18% transparency) */
+  color: rgba(68, 68, 68, 0.82);
+  /* Clamp to 5 lines to balance with fixed card height */
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Prefer color-mix where available for accurate theming */
+@supports (color: color-mix(in srgb, var(--default-color), transparent 18%)) {
+  .impact-card p {
+    color: color-mix(in srgb, var(--default-color), transparent 18%);
+  }
+}
+
+.impact-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 14px 44px rgba(0,0,0,0.12);
+}
+
+@media (max-width: 575.98px) {
+  .impact-time {
+    font-size: 13px;
+    max-width: 100%;
+  }
+  .impact-card {
+    padding: 14px 14px 12px 14px;
+    height: 180px; /* Slightly shorter on small screens */
+  }
+}
+
+/* Swiper controls styling to match theme */
+.impact .swiper-button-prev,
+.impact .swiper-button-next {
+  color: var(--accent-color);
+}
+
+.impact .swiper-pagination-bullet {
+  background: color-mix(in srgb, var(--default-color), transparent 50%);
+  opacity: .6;
+}
+
+.impact .swiper-pagination-bullet-active {
+  background: var(--accent-color);
+  opacity: 1;
+}
