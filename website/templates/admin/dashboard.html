@@ -1,0 +1,52 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block bodyclass %}{{ block.super }} dashboard-page{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main" class="analytics-page">
+  <div class="admin-page-heading">
+    <div><span class="admin-eyebrow">Overview</span><h1>Dashboard</h1><p>A live snapshot of your audience and webinar programme.</p></div>
+    <a href="{% url 'admin:reporting' %}" class="admin-action">Open full reporting →</a>
+  </div>
+
+  <section class="metric-grid" aria-label="Key metrics">
+    <article><span>Visits · 7 days</span><strong>{{ metrics.visits_7_days }}</strong><small>Public page views</small></article>
+    <article><span>Visits · 30 days</span><strong>{{ metrics.visits_30_days }}</strong><small>{{ metrics.unique_visitors_30_days }} unique sessions</small></article>
+    <article><span>Upcoming webinars</span><strong>{{ metrics.upcoming_webinars }}</strong><small>Published sessions</small></article>
+    <article><span>Registrations</span><strong>{{ metrics.registrations }}</strong><small>Across all webinars</small></article>
+    <article><span>Subscribers</span><strong>{{ metrics.subscribers }}</strong><small>Newsletter audience</small></article>
+    <article><span>Contact messages</span><strong>{{ metrics.unread_messages }}</strong><small>Total received</small></article>
+  </section>
+
+  <div class="admin-dashboard-columns">
+    <section class="admin-panel">
+      <div class="panel-heading"><div><span class="admin-eyebrow">Audience</span><h2>Visits this week</h2></div></div>
+      <div class="bar-chart">
+        {% for row in daily_visits %}
+          <div class="bar-row"><span>{{ row.label }}</span><div class="bar-track"><i style="width:{{ row.percentage }}%"></i></div><strong>{{ row.total }}</strong></div>
+        {% empty %}<p class="empty-report">Visits will appear here as people use the site.</p>{% endfor %}
+      </div>
+    </section>
+    <section class="admin-panel">
+      <div class="panel-heading"><div><span class="admin-eyebrow">Webinars</span><h2>Recent registrations</h2></div><a href="{% url 'admin:website_webinarregistration_changelist' %}">View all</a></div>
+      <div class="report-table-wrap">
+        <table class="report-table">
+          <thead><tr><th>Attendee</th><th>Webinar</th><th>Date</th></tr></thead>
+          <tbody>
+            {% for registration in recent_registrations %}
+              <tr><td><strong>{{ registration.full_name }}</strong><small>{{ registration.email }}</small></td><td>{{ registration.webinar.title|truncatechars:32 }}</td><td>{{ registration.registered_at|date:"d M" }}</td></tr>
+            {% empty %}<tr><td colspan="3">No registrations yet.</td></tr>{% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <section class="admin-panel model-management">
+    <div class="panel-heading"><div><span class="admin-eyebrow">Content</span><h2>Manage the website</h2></div></div>
+    {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+  </section>
+</div>
+{% endblock %}

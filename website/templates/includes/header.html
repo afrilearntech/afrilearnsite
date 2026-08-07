@@ -1,0 +1,18 @@
+{% load static %}
+<header id="header" class="header interior-header d-flex align-items-center fixed-top">
+  <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+    <a href="{% url 'website:home' %}" class="logo d-flex align-items-center" aria-label="AfriLearnTech home">
+      <img src="{% static 'img/logo.png' %}" class="header-logo" alt="AfriLearnTech Logo">
+    </a>
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="{% url 'website:home' %}">Home</a></li>
+        <li><a href="{% url 'website:home' %}#about">About</a></li>
+        <li><a href="{% url 'website:webinars' %}" class="{% if request.resolver_match.url_name == 'webinars' or request.resolver_match.url_name == 'webinar_detail' or request.resolver_match.url_name == 'webinar_register' %}active{% endif %}">Webinars</a></li>
+        <li><a href="{% url 'website:home' %}#gallery">Gallery</a></li>
+        <li><a href="{% url 'website:home' %}#contact">Contact</a></li>
+      </ul>
+      <i class="mobile-nav-toggle d-xl-none bi bi-list" aria-label="Toggle navigation"></i>
+    </nav>
+  </div>
+</header>

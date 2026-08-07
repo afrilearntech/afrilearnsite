@@ -1,0 +1,70 @@
+{% extends "admin/base_site.html" %}
+
+{% block bodyclass %}{{ block.super }} reporting-page{% endblock %}
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'admin:index' %}">Home</a> &rsaquo; Reporting</div>{% endblock %}
+
+{% block content %}
+<div id="content-main" class="analytics-page">
+  <div class="admin-page-heading">
+    <div><span class="admin-eyebrow">Analytics</span><h1>Reporting</h1><p>Webinar performance, audience growth and site engagement in one place.</p></div>
+    <div class="export-actions">
+      <a href="{% url 'admin:reporting_export_registrations' %}" class="admin-action">Export registrations</a>
+      <a href="{% url 'admin:reporting_export_visits' %}" class="admin-action secondary">Export visits</a>
+    </div>
+  </div>
+
+  <section class="metric-grid compact" aria-label="Key metrics">
+    <article><span>Visits · 7 days</span><strong>{{ metrics.visits_7_days }}</strong></article>
+    <article><span>Visits · 30 days</span><strong>{{ metrics.visits_30_days }}</strong></article>
+    <article><span>Unique · 30 days</span><strong>{{ metrics.unique_visitors_30_days }}</strong></article>
+    <article><span>Registrations</span><strong>{{ metrics.registrations }}</strong></article>
+  </section>
+
+  <div class="admin-report-grid">
+    <section class="admin-panel">
+      <div class="panel-heading"><div><span class="admin-eyebrow">Daily</span><h2>Last 30 days</h2></div></div>
+      <div class="bar-chart scrollable-chart">
+        {% for row in daily_visits %}<div class="bar-row"><span>{{ row.label }}</span><div class="bar-track"><i style="width:{{ row.percentage }}%"></i></div><strong>{{ row.total }}</strong></div>{% empty %}<p class="empty-report">No visit data yet.</p>{% endfor %}
+      </div>
+    </section>
+    <section class="admin-panel">
+      <div class="panel-heading"><div><span class="admin-eyebrow">Weekly</span><h2>Last 12 weeks</h2></div></div>
+      <div class="bar-chart">
+        {% for row in weekly_visits %}<div class="bar-row"><span>{{ row.label }}</span><div class="bar-track"><i style="width:{{ row.percentage }}%"></i></div><strong>{{ row.total }}</strong></div>{% empty %}<p class="empty-report">No visit data yet.</p>{% endfor %}
+      </div>
+    </section>
+    <section class="admin-panel">
+      <div class="panel-heading"><div><span class="admin-eyebrow">Monthly</span><h2>Last 12 months</h2></div></div>
+      <div class="bar-chart">
+        {% for row in monthly_visits %}<div class="bar-row"><span>{{ row.label }}</span><div class="bar-track"><i style="width:{{ row.percentage }}%"></i></div><strong>{{ row.total }}</strong></div>{% empty %}<p class="empty-report">No visit data yet.</p>{% endfor %}
+      </div>
+    </section>
+    <section class="admin-panel">
+      <div class="panel-heading"><div><span class="admin-eyebrow">Discovery</span><h2>Most visited pages</h2></div></div>
+      <div class="report-table-wrap">
+        <table class="report-table"><thead><tr><th>Page</th><th>Views</th></tr></thead><tbody>{% for row in top_pages %}<tr><td><code>{{ row.path }}</code></td><td><strong>{{ row.total }}</strong></td></tr>{% empty %}<tr><td colspan="2">No visit data yet.</td></tr>{% endfor %}</tbody></table>
+      </div>
+    </section>
+  </div>
+
+  <section class="admin-panel wide-panel">
+    <div class="panel-heading"><div><span class="admin-eyebrow">Performance</span><h2>Webinar registrations and engagement</h2></div></div>
+    <div class="report-table-wrap">
+      <table class="report-table">
+        <thead><tr><th>Webinar</th><th>Date</th><th>Registrations</th><th>Attended</th><th>Survey responses</th></tr></thead>
+        <tbody>{% for webinar in webinar_rows %}<tr><td><strong>{{ webinar.title }}</strong></td><td>{{ webinar.starts_at|date:"d M Y" }}</td><td>{{ webinar.registration_total }}</td><td>{{ webinar.attended_total }}</td><td>{{ webinar.survey_response_total }}</td></tr>{% empty %}<tr><td colspan="5">Create a webinar to begin reporting.</td></tr>{% endfor %}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="admin-panel wide-panel">
+    <div class="panel-heading"><div><span class="admin-eyebrow">Feedback</span><h2>Survey completion</h2></div></div>
+    <div class="report-table-wrap">
+      <table class="report-table">
+        <thead><tr><th>Survey</th><th>Webinar</th><th>Type</th><th>Status</th><th>Responses</th></tr></thead>
+        <tbody>{% for survey in survey_rows %}<tr><td><strong>{{ survey.title }}</strong></td><td>{{ survey.webinar.title }}</td><td>{{ survey.get_kind_display }}</td><td>{% if survey.is_open %}<span class="report-badge open">Open</span>{% else %}<span class="report-badge">Closed</span>{% endif %}</td><td>{{ survey.response_total }}</td></tr>{% empty %}<tr><td colspan="5">No surveys have been created.</td></tr>{% endfor %}</tbody>
+      </table>
+    </div>
+  </section>
+</div>
+{% endblock %}

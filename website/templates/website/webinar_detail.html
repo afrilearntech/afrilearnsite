@@ -1,0 +1,93 @@
+{% extends 'base/base.html' %}
+
+{% block title %}{{ webinar.title }} | AfriLearnTech{% endblock %}
+{% block meta_description %}{{ webinar.description|striptags|truncatewords:28 }}{% endblock %}
+
+{% block content %}
+<section class="webinar-detail-hero dark-background">
+  <div class="container">
+    <a href="{% url 'website:webinars' %}" class="back-link"><i class="bi bi-arrow-left"></i> All webinars</a>
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-7">
+        <span class="eyebrow">{% if webinar.is_upcoming %}Upcoming webinar{% else %}Past webinar{% endif %}</span>
+        <h1>{{ webinar.title }}</h1>
+        <div class="detail-meta">
+          <span><i class="bi bi-calendar3"></i> {{ webinar.starts_at|date:"l, F j, Y" }}</span>
+          <span><i class="bi bi-clock"></i> {{ webinar.starts_at|date:"g:i A" }} UTC{% if webinar.ends_at %} – {{ webinar.ends_at|date:"g:i A" }} UTC{% endif %}</span>
+        </div>
+        {% if webinar.is_registration_open %}
+          <a href="{% url 'website:webinar_register' webinar.slug %}" class="btn-webinar-primary btn-lg">Register for this webinar</a>
+        {% elif webinar.recording_url %}
+          <a href="{{ webinar.recording_url }}" target="_blank" rel="noopener" class="btn-webinar-primary btn-lg"><i class="bi bi-play-circle"></i> Watch recording</a>
+        {% else %}
+          <span class="registration-closed">Registration is closed</span>
+        {% endif %}
+      </div>
+      <div class="col-lg-5">
+        <div class="detail-flyer">
+          {% if webinar.flyer %}
+            <img src="{{ webinar.flyer.url }}" alt="Flyer for {{ webinar.title }}">
+          {% else %}
+            <div class="webinar-flyer-placeholder"><i class="bi bi-camera-video"></i><span>AfriLearnTech Webinar</span></div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section webinar-detail-content">
+  <div class="container">
+    <div class="row gy-5">
+      <div class="col-lg-8">
+        <span class="eyebrow">About the session</span>
+        <h2>What we’ll explore</h2>
+        <div class="webinar-description">{{ webinar.description|linebreaks }}</div>
+
+        {% if webinar.speakers.all %}
+          <div class="speaker-section">
+            <span class="eyebrow">Meet the experts</span>
+            <h2>Speakers</h2>
+            <div class="row g-3">
+              {% for speaker in webinar.speakers.all %}
+                <div class="col-md-6">
+                  <article class="speaker-card">
+                    {% if speaker.photo %}<img src="{{ speaker.photo.url }}" alt="{{ speaker.name }}">{% else %}<div class="speaker-avatar">{{ speaker.name|first }}</div>{% endif %}
+                    <div>
+                      <h3>{{ speaker.name }}</h3>
+                      {% if speaker.role or speaker.organization %}<p class="speaker-role">{{ speaker.role }}{% if speaker.role and speaker.organization %}, {% endif %}{{ speaker.organization }}</p>{% endif %}
+                      {% if speaker.bio %}<p>{{ speaker.bio|truncatewords:28 }}</p>{% endif %}
+                      {% if speaker.profile_url %}<a href="{{ speaker.profile_url }}" target="_blank" rel="noopener">View profile <i class="bi bi-arrow-up-right"></i></a>{% endif %}
+                    </div>
+                  </article>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+      <aside class="col-lg-4">
+        <div class="webinar-side-card">
+          <h3>Session details</h3>
+          <dl>
+            <div><dt>Date</dt><dd>{{ webinar.starts_at|date:"F j, Y" }}</dd></div>
+            <div><dt>Time</dt><dd>{{ webinar.starts_at|date:"g:i A" }} UTC</dd></div>
+            <div><dt>Format</dt><dd>Online webinar</dd></div>
+            {% if webinar.capacity %}<div><dt>Capacity</dt><dd>{{ webinar.capacity }} attendees</dd></div>{% endif %}
+          </dl>
+          {% if webinar.is_registration_open %}<a href="{% url 'website:webinar_register' webinar.slug %}" class="btn-webinar-primary w-100">Reserve your seat</a>{% endif %}
+        </div>
+        {% if open_surveys %}
+          <div class="webinar-side-card survey-links-card">
+            <h3>Webinar surveys</h3>
+            <p>Your feedback helps us improve future sessions.</p>
+            {% for survey in open_surveys %}
+              <a href="{% url 'website:survey' survey.pk %}" class="survey-link"><span>{{ survey.get_kind_display }}</span><strong>{{ survey.title }}</strong><i class="bi bi-arrow-right"></i></a>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </aside>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Webinars | AfriLearnTech{% endblock %}
+{% block meta_description %}Join upcoming AfriLearnTech webinars and explore past sessions on education, technology and innovation in Africa.{% endblock %}
+
+{% block content %}
+<section class="webinar-hero dark-background">
+  <div class="container position-relative">
+    <div class="webinar-hero-copy" data-aos="fade-up">
+      <span class="eyebrow">Ideas worth sharing</span>
+      <h1>Learn with people building Africa’s future</h1>
+      <p>Join practical conversations, expert sessions and community exchanges across education and technology.</p>
+      <a href="#upcoming" class="btn-webinar-primary btn-lg">Explore upcoming webinars <i class="bi bi-arrow-down"></i></a>
+    </div>
+    <div class="webinar-hero-orbit" aria-hidden="true"><i class="bi bi-camera-video"></i></div>
+  </div>
+</section>
+
+<section id="upcoming" class="webinar-list-section section">
+  <div class="container">
+    <div class="section-heading-row">
+      <div>
+        <span class="eyebrow">Save your seat</span>
+        <h2>Upcoming webinars</h2>
+      </div>
+      <span class="webinar-count">{{ upcoming_webinars|length }} session{{ upcoming_webinars|length|pluralize }}</span>
+    </div>
+    <div class="row g-4">
+      {% for webinar in upcoming_webinars %}
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+          {% include 'includes/webinar_card.html' %}
+        </div>
+      {% empty %}
+        <div class="col-12">
+          <div class="webinar-empty-state">
+            <i class="bi bi-calendar2-heart"></i>
+            <h3>More sessions are on the way</h3>
+            <p>Subscribe to our newsletter and we’ll let you know when registration opens.</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="webinar-list-section section light-background">
+  <div class="container">
+    <div class="section-heading-row">
+      <div>
+        <span class="eyebrow">Catch up</span>
+        <h2>Past webinars</h2>
+      </div>
+      <span class="webinar-count">{{ past_webinars|length }} session{{ past_webinars|length|pluralize }}</span>
+    </div>
+    <div class="row g-4">
+      {% for webinar in past_webinars %}
+        <div class="col-lg-4 col-md-6" data-aos="fade-up">
+          {% include 'includes/webinar_card.html' %}
+        </div>
+      {% empty %}
+        <div class="col-12"><div class="webinar-empty-state compact"><p>Past webinar resources will appear here.</p></div></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

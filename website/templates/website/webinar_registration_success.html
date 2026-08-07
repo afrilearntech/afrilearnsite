@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Registration confirmed | AfriLearnTech{% endblock %}
+
+{% block content %}
+<section class="form-page-section light-background">
+  <div class="container">
+    <div class="success-card">
+      <div class="success-icon"><i class="bi bi-check2"></i></div>
+      <span class="eyebrow">Registration confirmed</span>
+      <h1>Your seat is saved</h1>
+      <p>You’re registered for <strong>{{ webinar.title }}</strong> on {{ webinar.starts_at|date:"F j, Y" }} at {{ webinar.starts_at|date:"g:i A" }} UTC.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="{{ webinar.get_absolute_url }}" class="btn-webinar-primary">Back to webinar</a>
+        <a href="{% url 'website:webinars' %}" class="btn-webinar-secondary">Browse webinars</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

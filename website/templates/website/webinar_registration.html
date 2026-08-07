@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Register: {{ webinar.title }} | AfriLearnTech{% endblock %}
+
+{% block content %}
+<section class="form-page-section light-background">
+  <div class="container">
+    <div class="row justify-content-center gy-4">
+      <div class="col-lg-4">
+        <div class="form-event-summary">
+          <a href="{{ webinar.get_absolute_url }}" class="back-link dark"><i class="bi bi-arrow-left"></i> Webinar details</a>
+          {% if webinar.flyer %}<img src="{{ webinar.flyer.url }}" alt="Flyer for {{ webinar.title }}">{% endif %}
+          <span class="eyebrow">You’re registering for</span>
+          <h1>{{ webinar.title }}</h1>
+          <p><i class="bi bi-calendar3"></i> {{ webinar.starts_at|date:"l, F j, Y" }}</p>
+          <p><i class="bi bi-clock"></i> {{ webinar.starts_at|date:"g:i A" }} UTC</p>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="public-form-card">
+          <span class="eyebrow">Reserve your seat</span>
+          <h2>Registration details</h2>
+          <p class="form-intro">Complete the form below and we’ll save your place.</p>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+            <div class="row g-3">
+              {% for field in form %}
+                <div class="{% if field.name == 'expectations' or field.name == 'consent_to_updates' %}col-12{% else %}col-md-6{% endif %}">
+                  {% if field.field.widget.input_type == 'checkbox' %}
+                    <div class="form-check mt-2">{{ field }} <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label></div>
+                  {% else %}
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} <span>*</span>{% endif %}</label>
+                    {{ field }}
+                  {% endif %}
+                  {% for error in field.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+                </div>
+              {% endfor %}
+            </div>
+            <button type="submit" class="btn-webinar-primary btn-lg mt-4 w-100">Complete registration <i class="bi bi-arrow-right"></i></button>
+            <p class="form-privacy"><i class="bi bi-shield-check"></i> Your information is used only to manage this webinar and the updates you choose.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

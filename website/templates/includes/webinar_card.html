@@ -1,0 +1,30 @@
+<article class="webinar-card h-100">
+  <a href="{{ webinar.get_absolute_url }}" class="webinar-card-media" aria-label="View {{ webinar.title }}">
+    {% if webinar.flyer %}
+      <img src="{{ webinar.flyer.url }}" alt="Flyer for {{ webinar.title }}">
+    {% else %}
+      <div class="webinar-flyer-placeholder"><i class="bi bi-camera-video"></i><span>AfriLearnTech Webinar</span></div>
+    {% endif %}
+    <span class="webinar-status {% if webinar.is_upcoming %}is-upcoming{% else %}is-past{% endif %}">
+      {% if webinar.is_upcoming %}Upcoming{% else %}Past{% endif %}
+    </span>
+  </a>
+  <div class="webinar-card-body">
+    <div class="webinar-date-line"><i class="bi bi-calendar3"></i> {{ webinar.starts_at|date:"D, M j, Y · g:i A" }} UTC</div>
+    <h3><a href="{{ webinar.get_absolute_url }}">{{ webinar.title }}</a></h3>
+    <p>{{ webinar.description|truncatewords:24 }}</p>
+    {% if webinar.speakers.all %}
+      <div class="webinar-speaker-line"><i class="bi bi-mic"></i>
+        {% for speaker in webinar.speakers.all %}{{ speaker.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+      </div>
+    {% endif %}
+    <div class="webinar-card-actions">
+      <a href="{{ webinar.get_absolute_url }}" class="btn-webinar-secondary">View details</a>
+      {% if webinar.is_registration_open %}
+        <a href="{% url 'website:webinar_register' webinar.slug %}" class="btn-webinar-primary">Register</a>
+      {% elif webinar.recording_url %}
+        <a href="{{ webinar.recording_url }}" target="_blank" rel="noopener" class="btn-webinar-primary">Watch recording</a>
+      {% endif %}
+    </div>
+  </div>
+</article>

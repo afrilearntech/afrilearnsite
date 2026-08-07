@@ -1,0 +1,37 @@
+{% load static %}
+<footer id="footer" class="footer dark-background">
+  <div class="container footer-top">
+    <div class="row gy-4">
+      <div class="col-lg-5 col-md-6 footer-about">
+        <a href="{% url 'website:home' %}" class="logo d-flex align-items-center">
+          <img src="{% static 'img/logo.png' %}" class="footer-logo" alt="AfriLearnTech Logo">
+        </a>
+        <p class="mt-3">Empowering education, enabling innovation and enhancing Africa.</p>
+        <div class="footer-contact pt-2">
+          <p>Accra, Ghana · Monrovia, Liberia</p>
+          <p><strong>Email:</strong> info@afrilearntech.com</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 footer-links">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="{% url 'website:home' %}">Home</a></li>
+          <li><a href="{% url 'website:webinars' %}">Webinars</a></li>
+          <li><a href="{% url 'website:home' %}#about">About us</a></li>
+          <li><a href="{% url 'website:home' %}#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4 col-md-12 footer-newsletter">
+        <h4>Our Newsletter</h4>
+        <p>Get the latest learning opportunities and company updates.</p>
+        <form action="{% url 'website:newsletter' %}" method="post">
+          {% csrf_token %}
+          <div class="newsletter-form"><input type="email" name="email" placeholder="Your email" aria-label="Email address" required><input type="submit" value="Subscribe"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container copyright text-center mt-4">
+    <p>{% now "Y" %} © <strong class="px-1 sitename">AfriLearnTech</strong> <span>All Rights Reserved</span></p>
+  </div>
+</footer>

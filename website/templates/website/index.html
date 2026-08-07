@@ -50,6 +50,7 @@
           <li><a href="#competence">Competence</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#gallery">Gallery</a></li>
+          <li><a href="{% url 'website:webinars' %}">Webinars</a></li>
           <li><a href="#recognitions">Recognitions</a></li>
           <li><a href="#team">Team</a></li>
         
@@ -598,7 +599,7 @@
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{\% static 'img/gallery/g8.png' %}" class="glightbox" data-gallery="images-gallery" title="Gallery image g8">
+              <a href="{% static 'img/gallery/g8.png' %}" class="glightbox" data-gallery="images-gallery" title="Gallery image g8">
                 <img src="{% static 'img/gallery/g8.png' %}" alt="" class="img-fluid">
               </a>
             </div>
@@ -606,7 +607,7 @@
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{\% static 'img/gallery/g2.jpg' %}" class="glightbox" data-gallery="images-gallery" title="Gallery image g2">
+              <a href="{% static 'img/gallery/g2.jpg' %}" class="glightbox" data-gallery="images-gallery" title="Gallery image g2">
                 <img src="{% static 'img/gallery/g2.jpg' %}" alt="" class="img-fluid">
               </a>
             </div>
@@ -614,7 +615,7 @@
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{\% static 'img/gallery/g3.jpeg' %}" class="glightbox" data-gallery="images-gallery" title="Gallery image g3">
+              <a href="{% static 'img/gallery/g3.jpeg' %}" class="glightbox" data-gallery="images-gallery" title="Gallery image g3">
                 <img src="{% static 'img/gallery/g3.jpeg' %}" alt="" class="img-fluid">
               </a>
             </div>
@@ -622,7 +623,7 @@
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{\% static 'img/gallery/g4.jpeg' %}" class="glightbox" data-gallery="images-gallery" title="Gallery image g4">
+              <a href="{% static 'img/gallery/g4.jpeg' %}" class="glightbox" data-gallery="images-gallery" title="Gallery image g4">
                 <img src="{% static 'img/gallery/g4.jpeg' %}" alt="" class="img-fluid">
               </a>
             </div>
@@ -630,7 +631,7 @@
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{\% static 'img/gallery/g5.jpeg' %}" class="glightbox" data-gallery="images-gallery" title="Gallery image g5">
+              <a href="{% static 'img/gallery/g5.jpeg' %}" class="glightbox" data-gallery="images-gallery" title="Gallery image g5">
                 <img src="{% static 'img/gallery/g5.jpeg' %}" alt="" class="img-fluid">
               </a>
             </div>
@@ -638,7 +639,7 @@
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{\% static 'img/gallery/g6.jpeg' %}" class="glightbox" data-gallery="images-gallery" title="Gallery image g6">
+              <a href="{% static 'img/gallery/g6.jpeg' %}" class="glightbox" data-gallery="images-gallery" title="Gallery image g6">
                 <img src="{% static 'img/gallery/g6.jpeg' %}" alt="" class="img-fluid">
               </a>
             </div>
@@ -646,7 +647,7 @@
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{\% static 'img/gallery/g7.jpg' %}" class="glightbox" data-gallery="images-gallery" title="Gallery image g7">
+              <a href="{% static 'img/gallery/g7.jpg' %}" class="glightbox" data-gallery="images-gallery" title="Gallery image g7">
                 <img src="{% static 'img/gallery/g7.jpg' %}" alt="" class="img-fluid">
               </a>
             </div>
@@ -654,7 +655,7 @@
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{\% static 'img/gallery/prince-and-nana.jpg' %}" class="glightbox" data-gallery="images-gallery" title="Prince and Nana">
+              <a href="{% static 'img/gallery/prince-and-nana.jpg' %}" class="glightbox" data-gallery="images-gallery" title="Prince and Nana">
                 <img src="{% static 'img/gallery/prince-and-nana.jpg' %}" alt="" class="img-fluid">
               </a>
             </div>
@@ -1146,6 +1147,45 @@ We combine technical expertise, policy understanding, and local context to deliv
 
   </main>
 
+  {% if popup_webinar %}
+  <div class="modal fade webinar-promo-modal" id="webinarPromoModal" tabindex="-1" aria-labelledby="webinarPromoTitle" aria-hidden="true" data-webinar-id="{{ popup_webinar.pk }}">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="row g-0">
+          <div class="col-lg-5">
+            <div class="promo-flyer">
+              {% if popup_webinar.flyer %}
+                <img src="{{ popup_webinar.flyer.url }}" alt="Flyer for {{ popup_webinar.title }}">
+              {% else %}
+                <div class="webinar-flyer-placeholder"><i class="bi bi-camera-video"></i><span>AfriLearnTech Webinar</span></div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="promo-content">
+              <span class="eyebrow">Upcoming webinar</span>
+              <h2 id="webinarPromoTitle">{{ popup_webinar.title }}</h2>
+              <div class="promo-meta">
+                <span><i class="bi bi-calendar3"></i>{{ popup_webinar.starts_at|date:"D, M j, Y" }}</span>
+                <span><i class="bi bi-clock"></i>{{ popup_webinar.starts_at|date:"g:i A" }} UTC</span>
+              </div>
+              <p>{{ popup_webinar.description|truncatewords:38 }}</p>
+              {% if popup_webinar.speakers.all %}
+                <div class="promo-speakers"><strong>Featuring:</strong> {% for speaker in popup_webinar.speakers.all %}{{ speaker.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+              {% endif %}
+              <div class="promo-actions">
+                {% if popup_webinar.is_registration_open %}<a href="{% url 'website:webinar_register' popup_webinar.slug %}" class="btn-webinar-primary">Register now <i class="bi bi-arrow-right"></i></a>{% endif %}
+                <a href="{{ popup_webinar.get_absolute_url }}" class="btn-webinar-secondary">View details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
   <footer id="footer" class="footer dark-background">
 
     <div class="container footer-top">
@@ -1227,6 +1267,28 @@ We combine technical expertise, policy understanding, and local context to deliv
 
   <!-- Main JS File -->
   <script src="{% static 'js/main.js' %}"></script>
+
+  {% if popup_webinar %}
+  <script>
+    (function () {
+      const modalElement = document.getElementById('webinarPromoModal');
+      if (!modalElement || typeof bootstrap === 'undefined') return;
+      const webinarId = modalElement.dataset.webinarId;
+      const storageKey = `afrilearn-webinar-promo-${webinarId}`;
+      const cooldown = 72 * 60 * 60 * 1000;
+      let lastShown = 0;
+      try { lastShown = Number(localStorage.getItem(storageKey) || 0); } catch (error) {}
+      const outsideCooldown = Date.now() - lastShown > cooldown;
+      const shouldShow = outsideCooldown && Math.random() < 0.45;
+      if (shouldShow) {
+        window.setTimeout(function () {
+          bootstrap.Modal.getOrCreateInstance(modalElement).show();
+          try { localStorage.setItem(storageKey, String(Date.now())); } catch (error) {}
+        }, 2600);
+      }
+    })();
+  </script>
+  {% endif %}
 
   <!-- Recognition Modal Script -->
   <script>

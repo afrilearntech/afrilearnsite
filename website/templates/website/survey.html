@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+
+{% block title %}{{ survey.title }} | AfriLearnTech{% endblock %}
+
+{% block content %}
+<section class="form-page-section light-background">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <a href="{{ survey.webinar.get_absolute_url }}" class="back-link dark"><i class="bi bi-arrow-left"></i> {{ survey.webinar.title }}</a>
+        <div class="public-form-card survey-form-card">
+          <span class="eyebrow">{{ survey.get_kind_display }}</span>
+          <h1>{{ survey.title }}</h1>
+          {% if survey.introduction %}<div class="form-intro">{{ survey.introduction|linebreaks }}</div>{% endif %}
+          <form method="post" novalidate>
+            {% csrf_token %}
+            {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+            {% for field in form %}
+              <div class="survey-question">
+                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} <span>*</span>{% endif %}</label>
+                {% if field.field.widget.input_type == 'radio' or field.field.widget.input_type == 'checkbox' %}<div class="survey-options">{{ field }}</div>{% else %}{{ field }}{% endif %}
+                {% for error in field.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+              </div>
+            {% endfor %}
+            <button type="submit" class="btn-webinar-primary btn-lg w-100">Submit survey <i class="bi bi-send"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
