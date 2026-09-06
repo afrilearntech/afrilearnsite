@@ -20,6 +20,8 @@ Restart=on-failure
 RestartSec=3
 UMask=0027
 NoNewPrivileges=true
+CapabilityBoundingSet=
+MemoryDenyWriteExecute=true
 PrivateDevices=true
 PrivateTmp=true
 ProtectClock=true
@@ -29,12 +31,17 @@ ProtectHostname=true
 ProtectKernelLogs=true
 ProtectKernelModules=true
 ProtectKernelTunables=true
+ProtectProc=invisible
 ProtectSystem=strict
+ProcSubset=pid
 ReadWritePaths=/var/lib/afrilearnsite
+RemoveIPC=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 RestrictNamespaces=true
 RestrictRealtime=true
 RestrictSUIDSGID=true
 LockPersonality=true
+SystemCallArchitectures=native
 
 [Install]
 WantedBy=multi-user.target
