@@ -12,6 +12,7 @@ if ! flock -n 9; then
 fi
 
 cd "${APP_DIR}"
+export DJANGO_DATABASE_PATH="${DJANGO_DATABASE_PATH:-/var/lib/afrilearnsite/db/db.sqlite3}"
 
 if [[ ! -d .git || ! -x venv/bin/python ]]; then
     echo "The production checkout or Python environment is missing." >&2

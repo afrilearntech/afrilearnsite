@@ -10,6 +10,7 @@ User=afrilearn
 Group=afrilearn
 SupplementaryGroups=www-data
 WorkingDirectory=/srv/afrilearnsite
+Environment=DJANGO_DATABASE_PATH=/var/lib/afrilearnsite/db/db.sqlite3
 ExecStart=/srv/afrilearnsite/venv/bin/gunicorn \
     --access-logfile - \
     --workers 3 \
