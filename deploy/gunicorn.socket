@@ -1,0 +1,11 @@
+[Unit]
+Description=Afrilearn Gunicorn socket
+
+[Socket]
+ListenStream=/run/gunicorn.sock
+SocketUser=afrilearn
+SocketGroup=www-data
+SocketMode=0660
+
+[Install]
+WantedBy=sockets.target

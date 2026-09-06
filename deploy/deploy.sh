@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-readonly APP_DIR="/root/afrilearnsite"
+readonly APP_DIR="/srv/afrilearnsite"
 readonly BRANCH="main"
 readonly LOCK_FILE="/var/lock/afrilearnsite-deploy.lock"
 
