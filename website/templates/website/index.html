@@ -1275,17 +1275,44 @@ We combine technical expertise, policy understanding, and local context to deliv
       if (!modalElement || typeof bootstrap === 'undefined') return;
       const webinarId = modalElement.dataset.webinarId;
       const storageKey = `afrilearn-webinar-promo-${webinarId}`;
-      const cooldown = 72 * 60 * 60 * 1000;
-      let lastShown = 0;
-      try { lastShown = Number(localStorage.getItem(storageKey) || 0); } catch (error) {}
-      const outsideCooldown = Date.now() - lastShown > cooldown;
-      const shouldShow = outsideCooldown && Math.random() < 0.45;
-      if (shouldShow) {
-        window.setTimeout(function () {
-          bootstrap.Modal.getOrCreateInstance(modalElement).show();
-          try { localStorage.setItem(storageKey, String(Date.now())); } catch (error) {}
-        }, 2600);
+      const popupChance = 0.70;
+      const cooldownMs = 15 * 60 * 1000;
+      const showDelayMs = 2000;
+
+      function readLastShown() {
+        try {
+          const storedValue = Number(localStorage.getItem(storageKey));
+          return Number.isFinite(storedValue) && storedValue > 0 ? storedValue : 0;
+        } catch (error) {
+          return 0;
+        }
       }
+
+      function isOutsideCooldown() {
+        return Date.now() - readLastShown() >= cooldownMs;
+      }
+
+      if (!isOutsideCooldown() || Math.random() >= popupChance) return;
+
+      modalElement.addEventListener('shown.bs.modal', function () {
+        try { localStorage.setItem(storageKey, String(Date.now())); } catch (error) {}
+      }, { once: true });
+
+      function showPromotion() {
+        // Recheck in case another tab displayed the same webinar during the delay.
+        if (!isOutsideCooldown() || !document.body.contains(modalElement)) return;
+        bootstrap.Modal.getOrCreateInstance(modalElement).show();
+      }
+
+      window.setTimeout(function () {
+        if (document.hidden) {
+          document.addEventListener('visibilitychange', function showWhenVisible() {
+            if (!document.hidden) showPromotion();
+          }, { once: true });
+          return;
+        }
+        showPromotion();
+      }, showDelayMs);
     })();
   </script>
   {% endif %}

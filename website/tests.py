@@ -95,6 +95,10 @@ class WebinarPublicFlowTests(TestCase):
         response = self.client.get(reverse("website:home"))
         self.assertContains(response, "webinarPromoModal")
         self.assertContains(response, self.upcoming.title)
+        self.assertContains(response, "const popupChance = 0.70")
+        self.assertContains(response, "const cooldownMs = 15 * 60 * 1000")
+        self.assertContains(response, "const showDelayMs = 2000")
+        self.assertContains(response, "shown.bs.modal")
         self.assertNotContains(response, "{\\% static")
         self.assertContains(response, "/static/img/gallery/g8.png")
 
