@@ -20,6 +20,7 @@ jobs:
       DJANGO_SECRET_KEY: ci-only-not-a-production-secret-9f04d86d42d94833983c3ad86e78d7fe
       DJANGO_DEBUG: "False"
       DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,testserver
+      DJANGO_SECURE_SSL_REDIRECT: "False"
       DJANGO_SESSION_COOKIE_SECURE: "True"
       DJANGO_CSRF_COOKIE_SECURE: "True"
       DJANGO_HSTS_SECONDS: "31536000"
