@@ -16,6 +16,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      DJANGO_SECRET_KEY: ci-only-not-a-production-secret-9f04d86d42d94833983c3ad86e78d7fe
+      DJANGO_DEBUG: "False"
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,testserver
+      DJANGO_SESSION_COOKIE_SECURE: "True"
+      DJANGO_CSRF_COOKIE_SECURE: "True"
+      DJANGO_HSTS_SECONDS: "31536000"
+      DJANGO_HSTS_INCLUDE_SUBDOMAINS: "True"
+      DJANGO_HSTS_PRELOAD: "True"
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
@@ -31,7 +40,8 @@ jobs:
 
       - name: Run Django checks and tests
         run: |
-          python manage.py check
+          DJANGO_SECURE_SSL_REDIRECT=True python manage.py check --deploy --fail-level WARNING
+          DJANGO_SECURE_SSL_REDIRECT=False python manage.py check
           python manage.py test
 
   deploy:

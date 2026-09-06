@@ -42,7 +42,7 @@ fi
 
 git merge --ff-only "${target_commit}"
 venv/bin/python -m pip install --disable-pip-version-check -r requirements.txt
-venv/bin/python manage.py check
+venv/bin/python manage.py check --deploy --fail-level WARNING
 venv/bin/python manage.py migrate --noinput
 venv/bin/python manage.py collectstatic --noinput
 
