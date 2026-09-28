@@ -51,8 +51,8 @@
     <div class="panel-heading"><div><span class="admin-eyebrow">Performance</span><h2>Webinar registrations and engagement</h2></div></div>
     <div class="report-table-wrap">
       <table class="report-table">
-        <thead><tr><th>Webinar</th><th>Date</th><th>Registrations</th><th>Attended</th><th>Survey responses</th></tr></thead>
-        <tbody>{% for webinar in webinar_rows %}<tr><td><strong>{{ webinar.title }}</strong></td><td>{{ webinar.starts_at|date:"d M Y" }}</td><td>{{ webinar.registration_total }}</td><td>{{ webinar.attended_total }}</td><td>{{ webinar.survey_response_total }}</td></tr>{% empty %}<tr><td colspan="5">Create a webinar to begin reporting.</td></tr>{% endfor %}</tbody>
+        <thead><tr><th>Webinar</th><th>Date</th><th>Registrations</th><th>Attended</th><th>Survey responses</th><th>Participant tools</th></tr></thead>
+        <tbody>{% for webinar in webinar_rows %}<tr><td><strong>{{ webinar.title }}</strong></td><td>{{ webinar.starts_at|date:"d M Y" }}</td><td>{{ webinar.registration_total }}</td><td>{{ webinar.attended_total }}</td><td>{{ webinar.survey_response_total }}</td><td><a href="{% url 'admin:webinar_export_registrations' webinar.pk %}">Download</a> · <a href="{% url 'admin:webinar_notifications' %}?webinar={{ webinar.pk }}">Notify</a></td></tr>{% empty %}<tr><td colspan="6">Create a webinar to begin reporting.</td></tr>{% endfor %}</tbody>
       </table>
     </div>
   </section>

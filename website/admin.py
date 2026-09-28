@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.urls import reverse
 from django.utils.html import format_html
 
 from .models import (
@@ -11,6 +12,8 @@ from .models import (
     SurveyQuestion,
     SurveyResponse,
     Webinar,
+    WebinarNotification,
+    WebinarNotificationRecipient,
     WebinarRegistration,
 )
 
@@ -37,6 +40,7 @@ class SpeakerAdmin(admin.ModelAdmin):
 
 @admin.register(Webinar)
 class WebinarAdmin(admin.ModelAdmin):
+    change_form_template = "admin/website/webinar/change_form.html"
     list_display = (
         "title",
         "starts_at",
@@ -44,6 +48,7 @@ class WebinarAdmin(admin.ModelAdmin):
         "popup_enabled",
         "registration_total",
         "registration_state",
+        "participant_tools",
     )
     list_filter = ("is_published", "popup_enabled", "starts_at")
     search_fields = ("title", "description", "speakers__name")
@@ -72,6 +77,16 @@ class WebinarAdmin(admin.ModelAdmin):
     def registration_state(self, obj):
         return "Open" if obj.is_registration_open else "Closed"
 
+    @admin.display(description="Participant tools")
+    def participant_tools(self, obj):
+        export_url = reverse("admin:webinar_export_registrations", args=[obj.pk])
+        notification_url = f"{reverse('admin:webinar_notifications')}?webinar={obj.pk}"
+        return format_html(
+            '<a class="button" href="{}">Download</a> <a class="button" href="{}">Notify</a>',
+            export_url,
+            notification_url,
+        )
+
 
 @admin.action(description="Mark selected registrations as attended")
 def mark_attended(modeladmin, request, queryset):
@@ -87,6 +102,52 @@ class WebinarRegistrationAdmin(admin.ModelAdmin):
     autocomplete_fields = ("webinar",)
     date_hierarchy = "registered_at"
     actions = (mark_attended,)
+
+
+class WebinarNotificationRecipientInline(admin.TabularInline):
+    model = WebinarNotificationRecipient
+    extra = 0
+    can_delete = False
+    fields = ("name", "email", "status", "sent_at", "error_message")
+    readonly_fields = fields
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(WebinarNotification)
+class WebinarNotificationAdmin(admin.ModelAdmin):
+    list_display = (
+        "subject",
+        "webinar",
+        "audience",
+        "status",
+        "delivered_count",
+        "failed_count",
+        "created_at",
+    )
+    list_filter = ("status", "audience", "webinar", "created_at")
+    search_fields = ("subject", "message", "webinar__title", "recipients__email")
+    readonly_fields = (
+        "webinar",
+        "audience",
+        "subject",
+        "message",
+        "status",
+        "created_by",
+        "recipient_count",
+        "delivered_count",
+        "failed_count",
+        "created_at",
+        "completed_at",
+    )
+    inlines = (WebinarNotificationRecipientInline,)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 class SurveyQuestionInline(admin.TabularInline):

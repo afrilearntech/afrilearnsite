@@ -1,9 +1,11 @@
+import csv
 from datetime import timedelta
 from io import StringIO
 
 from django.contrib.auth import get_user_model
+from django.core import mail
 from django.core.management import call_command
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 
@@ -14,6 +16,8 @@ from .models import (
     SurveyQuestion,
     SurveyResponse,
     Webinar,
+    WebinarNotification,
+    WebinarNotificationRecipient,
     WebinarRegistration,
 )
 
@@ -187,7 +191,122 @@ class AdminAnalyticsTests(TestCase):
     def test_csv_exports_are_available(self):
         response = self.client.get(reverse("admin:reporting_export_registrations"))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Content-Type"], "text/csv")
+        self.assertEqual(response["Content-Type"], "text/csv; charset=utf-8")
+
+
+@override_settings(
+    EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
+    DEFAULT_FROM_EMAIL="AfriLearnTech <notifications@example.com>",
+    WEBINAR_EMAIL_NOTIFICATIONS_ENABLED=True,
+)
+class AdminParticipantToolsTests(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_superuser(
+            username="participant-admin",
+            email="admin@example.com",
+            password="secret-test-password",
+        )
+        self.client.force_login(self.user)
+        self.webinar = Webinar.objects.create(
+            title="Participant Tools Webinar",
+            description="Admin tools test.",
+            starts_at=timezone.now() + timedelta(days=3),
+        )
+        self.active_registration = WebinarRegistration.objects.create(
+            webinar=self.webinar,
+            first_name="Ama",
+            last_name="Boateng",
+            email="ama@example.com",
+            organization="=UNSAFE()",
+            expectations="Practical guidance",
+        )
+        self.cancelled_registration = WebinarRegistration.objects.create(
+            webinar=self.webinar,
+            first_name="Kojo",
+            last_name="Asare",
+            email="kojo@example.com",
+            status=WebinarRegistration.Status.CANCELLED,
+        )
+        other_webinar = Webinar.objects.create(
+            title="Other Webinar",
+            description="Out of scope.",
+            starts_at=timezone.now() + timedelta(days=4),
+        )
+        WebinarRegistration.objects.create(
+            webinar=other_webinar,
+            first_name="Else",
+            last_name="Where",
+            email="elsewhere@example.com",
+        )
+
+    def test_per_webinar_export_contains_all_and_only_its_registrations(self):
+        response = self.client.get(
+            reverse("admin:webinar_export_registrations", args=[self.webinar.pk])
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "text/csv; charset=utf-8")
+        rows = list(csv.reader(StringIO(response.content.decode("utf-8-sig"))))
+        self.assertEqual(len(rows), 3)
+        csv_text = response.content.decode("utf-8-sig")
+        self.assertIn("ama@example.com", csv_text)
+        self.assertIn("kojo@example.com", csv_text)
+        self.assertNotIn("elsewhere@example.com", csv_text)
+        self.assertIn("'=UNSAFE()", csv_text)
+
+    def test_notification_center_sends_privately_and_records_delivery_log(self):
+        response = self.client.post(
+            reverse("admin:webinar_notifications"),
+            {
+                "webinar": self.webinar.pk,
+                "audience": WebinarNotification.Audience.ACTIVE,
+                "subject": "Your webinar reminder",
+                "message": "We look forward to seeing you.",
+            },
+        )
+        self.assertRedirects(
+            response,
+            f"{reverse('admin:webinar_notifications')}?webinar={self.webinar.pk}",
+        )
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ["ama@example.com"])
+        self.assertNotIn("kojo@example.com", mail.outbox[0].to)
+        self.assertIn("Participant Tools Webinar", mail.outbox[0].body)
+
+        notification = WebinarNotification.objects.get()
+        self.assertEqual(notification.status, WebinarNotification.Status.SENT)
+        self.assertEqual(notification.recipient_count, 1)
+        self.assertEqual(notification.delivered_count, 1)
+        self.assertEqual(notification.failed_count, 0)
+        recipient = WebinarNotificationRecipient.objects.get()
+        self.assertEqual(recipient.registration, self.active_registration)
+        self.assertEqual(recipient.status, WebinarNotificationRecipient.Status.SENT)
+        self.assertIsNotNone(recipient.sent_at)
+
+    def test_notification_center_shows_audience_and_delivery_log(self):
+        response = self.client.get(
+            f"{reverse('admin:webinar_notifications')}?webinar={self.webinar.pk}"
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Participant notifications")
+        self.assertContains(response, self.webinar.title)
+        self.assertContains(response, "All active registrations")
+        self.assertContains(response, "Download registrations")
+
+    @override_settings(WEBINAR_EMAIL_NOTIFICATIONS_ENABLED=False)
+    def test_notification_sending_is_blocked_until_smtp_is_enabled(self):
+        response = self.client.post(
+            reverse("admin:webinar_notifications"),
+            {
+                "webinar": self.webinar.pk,
+                "audience": WebinarNotification.Audience.ACTIVE,
+                "subject": "Must not send",
+                "message": "SMTP has not been enabled.",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Outbound webinar email is disabled")
+        self.assertFalse(WebinarNotification.objects.exists())
+        self.assertEqual(len(mail.outbox), 0)
 
 
 class SeedDataCommandTests(TestCase):

@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -152,6 +153,90 @@ class WebinarRegistration(models.Model):
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}".strip()
+
+
+class WebinarNotification(models.Model):
+    class Audience(models.TextChoices):
+        ACTIVE = "active", "All active registrations"
+        REGISTERED = "registered", "Registered"
+        ATTENDED = "attended", "Attended"
+        NO_SHOW = "no_show", "No show"
+        CANCELLED = "cancelled", "Cancelled"
+
+    class Status(models.TextChoices):
+        SENDING = "sending", "Sending"
+        SENT = "sent", "Sent"
+        PARTIAL = "partial", "Partially sent"
+        FAILED = "failed", "Failed"
+
+    webinar = models.ForeignKey(
+        Webinar,
+        on_delete=models.CASCADE,
+        related_name="notifications",
+    )
+    audience = models.CharField(max_length=20, choices=Audience.choices)
+    subject = models.CharField(max_length=240)
+    message = models.TextField()
+    status = models.CharField(
+        max_length=20,
+        choices=Status.choices,
+        default=Status.SENDING,
+    )
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        related_name="webinar_notifications",
+        blank=True,
+        null=True,
+    )
+    recipient_count = models.PositiveIntegerField(default=0)
+    delivered_count = models.PositiveIntegerField(default=0)
+    failed_count = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    completed_at = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        ordering = ("-created_at",)
+        indexes = [models.Index(fields=("webinar", "created_at"))]
+
+    def __str__(self):
+        return f"{self.subject} — {self.webinar.title}"
+
+
+class WebinarNotificationRecipient(models.Model):
+    class Status(models.TextChoices):
+        PENDING = "pending", "Pending"
+        SENT = "sent", "Sent"
+        FAILED = "failed", "Failed"
+
+    notification = models.ForeignKey(
+        WebinarNotification,
+        on_delete=models.CASCADE,
+        related_name="recipients",
+    )
+    registration = models.ForeignKey(
+        WebinarRegistration,
+        on_delete=models.SET_NULL,
+        related_name="notification_deliveries",
+        blank=True,
+        null=True,
+    )
+    name = models.CharField(max_length=201)
+    email = models.EmailField()
+    status = models.CharField(
+        max_length=20,
+        choices=Status.choices,
+        default=Status.PENDING,
+    )
+    error_message = models.TextField(blank=True)
+    sent_at = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        ordering = ("email",)
+        indexes = [models.Index(fields=("notification", "status"))]
+
+    def __str__(self):
+        return f"{self.email} — {self.get_status_display()}"
 
 
 class Survey(models.Model):

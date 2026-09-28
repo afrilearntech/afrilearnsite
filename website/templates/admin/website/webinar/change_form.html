@@ -1,0 +1,9 @@
+{% extends "admin/change_form.html" %}
+
+{% block object-tools-items %}
+  {% if change and original %}
+    <li><a href="{% url 'admin:webinar_export_registrations' original.pk %}">Download registrations</a></li>
+    <li><a href="{% url 'admin:webinar_notifications' %}?webinar={{ original.pk }}">Notify participants</a></li>
+  {% endif %}
+  {{ block.super }}
+{% endblock %}

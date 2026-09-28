@@ -150,7 +150,7 @@ body { color: var(--body-fg); background: var(--admin-bg); }
 .admin-page-heading p { margin: 0; color: var(--admin-muted); font-size: 15px; }
 .admin-eyebrow { color: #07865f; font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; }
 
-.admin-action { display: inline-flex; align-items: center; justify-content: center; padding: 11px 17px; color: #fff !important; background: var(--admin-indigo); border: 1px solid var(--admin-indigo); border-radius: 9px; font-weight: 700; }
+.admin-action { display: inline-flex; align-items: center; justify-content: center; padding: 11px 17px; color: #fff !important; background: var(--admin-indigo); border: 1px solid var(--admin-indigo); border-radius: 9px; font-weight: 700; cursor: pointer; }
 .admin-action:hover { background: #1a12af; }
 .admin-action.secondary { color: var(--admin-indigo) !important; background: #fff; }
 .export-actions { display: flex; flex-wrap: wrap; gap: 9px; }
@@ -193,6 +193,30 @@ body { color: var(--body-fg); background: var(--admin-bg); }
 .model-management .module { margin-bottom: 15px; border: 1px solid var(--admin-line); border-radius: 10px; overflow: hidden; }
 .model-management caption { background: var(--admin-surface-muted); }
 .model-management caption a { color: var(--link-fg); }
+
+.notification-layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(280px, .65fr); gap: 22px; }
+.delivery-note { margin: -8px 0 24px; padding: 13px 15px; color: var(--admin-muted); background: var(--admin-surface-muted); border-radius: 9px; }
+.delivery-warning { color: #7a4d00; background: #fff1cc; border: 1px solid #ecd28d; }
+.admin-action:disabled { opacity: .55; cursor: not-allowed; }
+.notification-field { margin-bottom: 20px; }
+.notification-field > label { display: block; margin-bottom: 7px; color: var(--admin-ink); font-weight: 750; }
+.notification-field input,
+.notification-field select,
+.notification-field textarea { box-sizing: border-box; width: 100%; max-width: none; padding: 11px 12px; border-radius: 8px; }
+.notification-field .help { margin-top: 6px; color: var(--admin-subtle); font-size: 12px; }
+.notification-field .errorlist,
+.form-errors .errorlist { margin: 7px 0 0; padding: 9px 12px; color: #9d1c1c; background: #fff0f0; border-radius: 7px; list-style: none; }
+.notification-submit { display: flex; align-items: center; gap: 14px; padding-top: 4px; }
+.notification-submit span { color: var(--admin-subtle); font-size: 12px; }
+.audience-counts { display: flex; flex-direction: column; gap: 2px; }
+.audience-counts > div { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 13px 2px; border-bottom: 1px solid var(--admin-line); }
+.audience-counts span { color: var(--admin-muted); }
+.audience-counts strong { color: var(--admin-ink); font-size: 18px; }
+.audience-refresh { margin: 18px 0 0; }
+.delivery-status { display: inline-block; padding: 4px 8px; color: var(--admin-muted); background: var(--admin-surface-muted); border-radius: 999px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+.delivery-status.status-sent { color: #056348; background: #ddf8ef; }
+.delivery-status.status-partial { color: #7a4d00; background: #fff1cc; }
+.delivery-status.status-failed { color: #962222; background: #ffe1e1; }
 
 /* Keep Django's built-in changelists and forms aligned with the chosen theme. */
 #content h1,
@@ -271,7 +295,8 @@ select:focus {
   #content { padding: 25px 18px 45px; }
   .admin-page-heading { align-items: flex-start; flex-direction: column; }
   .metric-grid, .metric-grid.compact { grid-template-columns: repeat(2, 1fr); }
-  .admin-dashboard-columns, .admin-report-grid { grid-template-columns: 1fr; }
+  .admin-dashboard-columns, .admin-report-grid, .notification-layout { grid-template-columns: 1fr; }
+  .notification-submit { align-items: flex-start; flex-direction: column; }
 }
 
 @media (max-width: 480px) {

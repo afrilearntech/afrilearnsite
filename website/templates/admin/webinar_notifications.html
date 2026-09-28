@@ -1,0 +1,90 @@
+{% extends "admin/base_site.html" %}
+
+{% block bodyclass %}{{ block.super }} notifications-page{% endblock %}
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'admin:index' %}">Home</a> &rsaquo; Notifications</div>{% endblock %}
+
+{% block content %}
+<div id="content-main" class="analytics-page">
+  <div class="admin-page-heading">
+    <div>
+      <span class="admin-eyebrow">Webinars</span>
+      <h1>Participant notifications</h1>
+      <p>Send a private email to a webinar audience and review every delivery result.</p>
+    </div>
+    {% if selected_webinar %}
+      <a href="{% url 'admin:webinar_export_registrations' selected_webinar.pk %}" class="admin-action secondary">Download registrations</a>
+    {% endif %}
+  </div>
+
+  <div class="notification-layout">
+    <section class="admin-panel notification-compose">
+      <div class="panel-heading">
+        <div><span class="admin-eyebrow">Compose</span><h2>Send notification</h2></div>
+      </div>
+      {% if email_enabled %}
+        <p class="delivery-note">Messages are sent individually from <strong>{{ email_sender }}</strong>; participant addresses are never exposed to one another.</p>
+      {% else %}
+        <p class="delivery-note delivery-warning"><strong>Sending is currently disabled.</strong> Configure the production SMTP environment, verify it, then enable webinar email notifications.</p>
+      {% endif %}
+      <form method="post" novalidate onsubmit="return window.confirm('Send this notification to the selected webinar audience now?')">
+        {% csrf_token %}
+        {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+        {% for field in form %}
+          <div class="notification-field{% if field.errors %} has-errors{% endif %}">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.help_text %}<div class="help">{{ field.help_text }}</div>{% endif %}
+            {{ field.errors }}
+          </div>
+        {% endfor %}
+        <div class="notification-submit">
+          <button type="submit" class="admin-action"{% if not email_enabled %} disabled{% endif %}>Send notification</button>
+          <span>This action emails the selected audience immediately.</span>
+        </div>
+      </form>
+    </section>
+
+    <aside class="admin-panel audience-panel">
+      <div class="panel-heading">
+        <div><span class="admin-eyebrow">Audience</span><h2>{% if selected_webinar %}{{ selected_webinar.title }}{% else %}Choose a webinar{% endif %}</h2></div>
+      </div>
+      {% if selected_webinar %}
+        <div class="audience-counts">
+          {% for row in audience_rows %}
+            <div><span>{{ row.label }}</span><strong>{{ row.count }}</strong></div>
+          {% endfor %}
+        </div>
+        <p class="audience-refresh"><a href="{% url 'admin:webinar_notifications' %}?webinar={{ selected_webinar.pk }}">Refresh audience counts</a></p>
+      {% else %}
+        <p class="empty-report">Choose a webinar above to preview its audience counts.</p>
+      {% endif %}
+    </aside>
+  </div>
+
+  <section class="admin-panel wide-panel">
+    <div class="panel-heading">
+      <div><span class="admin-eyebrow">Delivery log</span><h2>Recent notifications</h2></div>
+      <a href="{% url 'admin:website_webinarnotification_changelist' %}">View full log</a>
+    </div>
+    <div class="report-table-wrap">
+      <table class="report-table">
+        <thead><tr><th>Subject</th><th>Webinar</th><th>Audience</th><th>Delivery</th><th>Sent by</th><th>Date</th></tr></thead>
+        <tbody>
+          {% for notification in notifications %}
+            <tr>
+              <td><strong><a href="{% url 'admin:website_webinarnotification_change' notification.pk %}">{{ notification.subject }}</a></strong></td>
+              <td>{{ notification.webinar.title }}</td>
+              <td>{{ notification.get_audience_display }}<small>{{ notification.recipient_count }} recipient{{ notification.recipient_count|pluralize }}</small></td>
+              <td><span class="delivery-status status-{{ notification.status }}">{{ notification.get_status_display }}</span><small>{{ notification.delivered_count }} sent · {{ notification.failed_count }} failed</small></td>
+              <td>{% if notification.created_by %}{{ notification.created_by.get_username }}{% else %}System{% endif %}</td>
+              <td>{{ notification.created_at|date:"d M Y, H:i" }}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="6">No webinar notifications have been sent yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+{% endblock %}

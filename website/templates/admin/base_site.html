@@ -16,5 +16,6 @@
   <nav class="admin-primary-nav" aria-label="Admin sections">
     <a href="{% url 'admin:index' %}" class="{% if active_admin_tab == 'dashboard' %}active{% endif %}">Dashboard</a>
     <a href="{% url 'admin:reporting' %}" class="{% if active_admin_tab == 'reporting' %}active{% endif %}">Reporting</a>
+    <a href="{% url 'admin:webinar_notifications' %}" class="{% if active_admin_tab == 'notifications' %}active{% endif %}">Notifications</a>
   </nav>
 {% endblock %}
